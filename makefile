@@ -1,4 +1,4 @@
 FILES = src/*.c
 
-rover: $(FILES)
-	gcc $(FILES) -o rover.out
+reverse: $(FILES)
+	cc $(FILES) -o reverse.out
