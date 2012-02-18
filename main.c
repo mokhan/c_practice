@@ -3,14 +3,28 @@
 #include <string.h>
 #include "reverse.h"
 
+int assert_equals(char *actual, char *expected)
+{
+	int ret;
+	ret = strcmp(actual, expected);
+	if(ret != 0){
+		printf("FAIL! actual: '%s', expected: '%s'", actual, expected);
+	} else {
+		printf("PASS! actual: '%s', expected: '%s'", actual, expected);
+	}
+
+	return ret == 0?1:0;
+}
+void test_string_reversal()
+{
+	char input[32];
+	strcpy( input, "tell The Truth");
+	reverse(input);
+	assert_equals(input, "hturT ehT llet");
+}
+
 int main(int argc, const char *argv[])
 {
-  char input[128];
-
-  printf("enter a string to reverse: ");
-  gets(input);
-  reverse(input);
-  printf("%s", input);
-
-  return 0;
+	test_string_reversal();
+	return 0;
 }
