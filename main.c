@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "reverse.h"
+#include "inc/reverse.h"
 
 typedef int (*Test)();
 
