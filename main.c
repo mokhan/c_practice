@@ -3,17 +3,17 @@
 #include <string.h>
 #include "reverse.h"
 
+typedef int (*Test)();
+
 int assert_equals(char *actual, char *expected)
 {
-	int ret;
-	ret = strcmp(actual, expected);
-	if(ret != 0){
+	int result = strcmp(actual, expected);
+	if(result != 0){
 		printf("FAIL! actual: '%s', expected: '%s'", actual, expected);
 	} else {
-		printf("PASS! actual: '%s', expected: '%s'", actual, expected);
+		printf("PASS!");
 	}
-
-	return ret == 0?1:0;
+	return result == 0?1:0;
 }
 int test_string_reversal()
 {
@@ -23,22 +23,23 @@ int test_string_reversal()
 	return assert_equals(input, "hturT ehT llet");
 }
 
-typedef int (*Test)();
+void run(Test *tests)
+{
+	int i;
+	for (i = 0; i < sizeof(tests); i++) {
+		Test test = tests[i];
+		if(NULL == test) break;
+		test();
+	}
+}
 
 int main(int argc, const char *argv[])
 {
-	int i;
-	Test tests[10] = {NULL};
-	tests[0] = &test_string_reversal;
+	Test tests[10] = {
+		&test_string_reversal
+	};
 
-	for (i = 0; i < sizeof(tests); i++) {
-		Test test;
-		int result;
-		test = tests[i];
-		if(NULL == test) break;
-		result = test();
-		printf("%s \n",result == 1?"PASS":"FAIL");
-	}
+	run(tests);
 
 	return 0;
 }
