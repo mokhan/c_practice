@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "assertions.h"
 
 void reverse(char* input){
   char *start = input, *end, tmp;
@@ -16,3 +17,4 @@ void reverse(char* input){
     --end;
   }
 }
+
