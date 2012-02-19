@@ -2,19 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "reverse.h"
+#include "assertions.h"
 
 typedef int (*Test)();
 
-int assert_equals(char *actual, char *expected)
-{
-	int result = strcmp(actual, expected);
-	if(result != 0){
-		printf("FAIL! actual: '%s', expected: '%s'", actual, expected);
-	} else {
-		printf("PASS!");
-	}
-	return result == 0?1:0;
-}
 int test_string_reversal()
 {
 	char input[32];
