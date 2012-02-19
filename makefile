@@ -1,14 +1,20 @@
-PROGRAM = practice
-C_FILES := $(wildcard *.c)
-OBJS := $(patsubst %.c, %.o, $(C_FILES))
-CC = cc
-CFLAGS = -Wall -pedantic
-LDFLAGS = 
+SRCDIR 		:= src/
+OBJDIR 		:= obj/
+BINDIR 		:= bin/
 
-all: $(PROGRAM)
+PROGRAM 	:= practice
+EXE 			:= $(BINDIR)$(PROGRAM)
 
-$(PROGRAM): .depend $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(PROGRAM)
+C_FILES 	:= $(wildcard *.c) $(wildcard */*.c)
+OBJS 			:= $(patsubst src/%.c, obj/%.o, $(C_FILES))
+CC 				:= cc
+CFLAGS 		:= -Wall -pedantic
+LDFLAGS 	:= 
+
+all: init $(EXE)
+
+$(EXE): .depend $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(EXE)
 
 depend: .depend
 
@@ -20,16 +26,24 @@ depend: .depend
 
 -include .depend
 
-%.o: %.c
+$(OBJDIR)%.o: $(SRCDIR)%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-%: %.c
+$(SRCDIR)/%: %.c
 	$(CC) $(CFLAGS) -o $@ $<
 
 clean:
-	rm -f *.o *.out .depend
+	@echo 'cleaning...'
+	@rm -fr *.o *.out .depend $(BINDIR) $(OBJDIR)
 
-.PHONY: clean depend
+init: clean
+	@echo 'initializing...'
+	@mkdir bin obj
+
+run: all
+	$(EXE)
+
+.PHONY: clean init depend
 
 list:
 	@echo $(C_FILES)
