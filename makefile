@@ -7,7 +7,7 @@ EXE 			:= $(BINDIR)$(PROGRAM)
 
 C_FILES 	:= $(wildcard *.c) $(wildcard */*.c)
 OBJS 			:= $(patsubst src/%.c, obj/%.o, $(C_FILES))
-CC 				:= cc
+CC 				:= gcc
 CFLAGS 		:= -Wall -pedantic
 LDFLAGS 	:= 
 
